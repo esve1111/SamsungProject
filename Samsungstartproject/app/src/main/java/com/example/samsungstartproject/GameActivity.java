@@ -14,18 +14,9 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Button btnGoToSecAct = (Button) findViewById(R.id.btn_main);
-
-        View.OnClickListener oclBtnGoToSecAct = new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        };
-
-        btnGoToSecAct.setOnClickListener(oclBtnGoToSecAct);
+        findViewById(R.id.btn_main).setOnClickListener(v -> {
+            Intent intent = new Intent(GameActivity.this, MemoActivity.class);
+            startActivity(intent);
+        });
     }
 }
