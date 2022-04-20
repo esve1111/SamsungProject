@@ -18,5 +18,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
+
+        findViewById(R.id.btn_tips).setOnClickListener(v -> {
+
+            Intent intent = new Intent(MainActivity.this, TipsActivity.class);
+            startActivity(intent);
+
+        });
     }
 }

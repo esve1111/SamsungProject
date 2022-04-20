@@ -1,126 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MemoActivity">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        tools:text="Заголовок" />
 
     <LinearLayout
         android:id="@+id/game_field"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        
+
         <LinearLayout
             android:id="@+id/row1"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            
-            <ImageButton
-                android:tag="0"
-                android:layout_width="@dimen/star_size"
-                android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageButton
-                android:tag="1"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:tag="0" />
 
             <ImageButton
-                android:tag="2"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:tag="1" />
+
+            <ImageButton
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
+                android:src="@android:drawable/star_big_off"
+                android:tag="2" />
 
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/row2"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageButton
-                android:tag="3"
-                android:src="@android:drawable/star_big_off"
+                android:layout_width="@dimen/star_size"
+                android:layout_height="@dimen/star_size"
                 android:gravity="center"
-                android:layout_width="@dimen/star_size"
-                android:layout_height="@dimen/star_size"/>
+                android:src="@android:drawable/star_big_off"
+                android:tag="3" />
 
             <ImageButton
-                android:tag="4"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:tag="4" />
 
             <ImageButton
-                android:tag="5"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
-            
+                android:src="@android:drawable/star_big_off"
+                android:tag="5" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/row3"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageButton
-                android:tag="6"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:tag="6" />
 
             <ImageButton
-                android:tag="7"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:tag="7" />
 
             <ImageButton
-                android:tag="8"
                 android:layout_width="@dimen/star_size"
                 android:layout_height="@dimen/star_size"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:tag="8" />
 
         </LinearLayout>
-        
+
     </LinearLayout>
-    
+
     <LinearLayout
-        android:layout_marginBottom="100dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/restart"
-            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/star_size"
+            android:layout_margin="8dp"
             android:text="RESTART" />
 
         <Button
             android:id="@+id/start_game"
-            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/star_size"
+            android:layout_margin="8dp"
             android:text="START" />
-        
+
     </LinearLayout>
-    
-</FrameLayout>
+
+</LinearLayout>

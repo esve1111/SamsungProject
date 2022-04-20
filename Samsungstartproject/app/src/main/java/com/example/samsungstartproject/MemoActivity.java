@@ -2,35 +2,66 @@ package com.example.samsungstartproject;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MemoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final ArrayList<Boolean> answer = new ArrayList<>(START_COUNT_DEFAULT);
-    private final ArrayList<Boolean> current = new ArrayList<>(START_COUNT_DEFAULT);
-    private final int[] LEVEL_STARS_COUNT = {2, 3, 5};
-    private int level = 0;
+    public static final String STAR_COUNT_TOTAL = "STAR_COUNT_TOTAL";
+    public static final String STAR_IN_ROW = "STAR_IN_ROW";
+    public static final String LEVEL_STARS_COUNT = "LEVEL_STARS_COUNT";
 
-    private static final int START_COUNT_DEFAULT = 9;
-    private static final int START_IN_ROW = 3;
+    private ArrayList<Boolean> answer;
+    private ArrayList<Boolean> current;
+
+    private int[] level_stars_count;
+    private int star_in_row = 0;
+    private int level = 0;
+    private int star_count_total = 0;
+
     private static final int DELAY_DEFAULT = 5000;
 
+    private TextView title;
+
+    private Timer timer = new Timer();
+    private int lastTime = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
 
+        star_count_total = getIntent().getIntExtra(STAR_COUNT_TOTAL, 9);
+        star_in_row = getIntent().getIntExtra(STAR_IN_ROW, 3);
+        level_stars_count = getIntent().getIntArrayExtra(LEVEL_STARS_COUNT);
+
+        answer = new ArrayList<>(star_count_total);
+        current = new ArrayList<>(star_count_total);
+
+        title = findViewById(R.id.title);
+        title.setText("Для начала игры нажмите START");
+
+        generateField();
+
         findViewById(R.id.start_game).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                level = 0;
+                startLevel();
+            }
+        });
+
+        findViewById(R.id.restart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startLevel();
@@ -38,19 +69,66 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    void startLevel() {
+    void generateField() {
+        LinearLayout field = findViewById(R.id.game_field);
+        field.removeAllViewsInLayout();
 
+        for (int i = 0; i < star_count_total; i++) {
+            int row = i / star_in_row;
+            int column = i % star_in_row;
+
+            if (column == 0) {
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setPadding(0,0,0,0);
+                field.addView(linearLayout);
+            }
+
+            ImageButton star = new ImageButton(this);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    getResources().getDimensionPixelSize(R.dimen.star_size),
+                    getResources().getDimensionPixelSize(R.dimen.star_size)
+            );
+            layoutParams.setMargins(0,0,0,0);
+            star.setLayoutParams(layoutParams);
+            star.setPadding(0,0,0,0);
+            star.setImageResource(android.R.drawable.star_big_off);
+            star.setTag(String.valueOf(i));
+
+            ((LinearLayout) field.getChildAt(row)).addView(star);
+        }
+    }
+
+    void startLevel() {
         generateStars(level);
         render(answer, false);
 
-        new Handler().postDelayed(() -> render(current, true), DELAY_DEFAULT);
+        lastTime = DELAY_DEFAULT;
 
+        timer.cancel();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                if (lastTime < 0) {
+                    timer.cancel();
+                    timer.purge();
+                    title.setText("Вспоминай");
+                    render(current, true);
+                } else {
+                    title.setText("Осталось " + (lastTime / 1000) + " секунд");
+                    lastTime -= 1000;
+                }
+
+            }
+        }, 1000, 1000);
     }
 
     private void render(ArrayList<Boolean> array, boolean enableClick) {
         for (int i = 0; i < array.size(); i++) {
-            int row = i / START_IN_ROW;
-            int column = i % START_IN_ROW;
+            int row = i / star_in_row;
+            int column = i % star_in_row;
 
             LinearLayout field = findViewById(R.id.game_field);
             ImageButton star = (ImageButton) ((LinearLayout) field.getChildAt(row)).getChildAt(column);
@@ -70,12 +148,12 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void generateStars(int level) {
-        int stars = LEVEL_STARS_COUNT[level];
+        int stars = level_stars_count[level];
 
         answer.clear();
         current.clear();
 
-        for (int i = 0; i < START_COUNT_DEFAULT; i++) {
+        for (int i = 0; i < star_count_total; i++) {
             answer.add(i < stars);
             current.add(false);
         }
@@ -121,38 +199,36 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             String message = "";
-            boolean isFinish = false;
 
             if (isMarch) {
-                if (LEVEL_STARS_COUNT.length - 1 == level) {
-                    isFinish = true;
-                    message = "ПРАВИЛЬНО! Вы прошли уровень";
+                if (level_stars_count.length - 1 == level) {
+                    showFinishDialog();
+                    return;
                 } else {
-                    message = "ПРАВИЛЬНО! Теперь сложнее";
+                    message = "ПРАВИЛЬНО! Теперь сложнее!";
+                    level++;
+                    startLevel();
                 }
-
             } else {
-                message = "ОШИБКА";
+                message = "ОШИБКА! \nПопробуй снова!";
+                render(current, false);
             }
 
-            boolean finalIsFinish = isFinish;
-            new AlertDialog.Builder(this)
-                    .setMessage(message)
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            if (finalIsFinish) {
-                                finish();
-                            } else {
-                                level++;
-                                startLevel();
-                            }
-                        }
-                    })
-                    .show();
-
+            title.setText(message);
         }
+    }
+
+    void showFinishDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage("ПРАВИЛЬНО! Вы прошли уровень!")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .show();
     }
 }
