@@ -4,18 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     android:orientation="vertical"
     tools:context=".MemoActivity">
 
-    <TextView
-        android:id="@+id/title"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        tools:text="Заголовок" />
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            tools:text="Заголовок" />
+
+        <TextView
+            android:id="@+id/error_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:gravity="end"
+            android:textSize="20sp"
+            tools:text="Количество ошибок: 0" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/game_field"

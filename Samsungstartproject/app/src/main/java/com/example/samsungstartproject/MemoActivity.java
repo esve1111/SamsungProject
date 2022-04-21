@@ -20,6 +20,8 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
     public static final String STAR_COUNT_TOTAL = "STAR_COUNT_TOTAL";
     public static final String STAR_IN_ROW = "STAR_IN_ROW";
     public static final String LEVEL_STARS_COUNT = "LEVEL_STARS_COUNT";
+    public static final String LEVEL_NUMBER = "LEVEL_NUMBER";
+    public static final String COMPLETED_LEVELS = "COMPLETED_LEVELS";
 
     private ArrayList<Boolean> answer;
     private ArrayList<Boolean> current;
@@ -28,6 +30,8 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
     private int star_in_row = 0;
     private int level = 0;
     private int star_count_total = 0;
+    private int error_count = 0;
+    private String level_number = "";
 
     private static final int DELAY_DEFAULT = 5000;
 
@@ -44,6 +48,7 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
         star_count_total = getIntent().getIntExtra(STAR_COUNT_TOTAL, 9);
         star_in_row = getIntent().getIntExtra(STAR_IN_ROW, 3);
         level_stars_count = getIntent().getIntArrayExtra(LEVEL_STARS_COUNT);
+        level_number = getIntent().getStringExtra(LEVEL_NUMBER);
 
         answer = new ArrayList<>(star_count_total);
         current = new ArrayList<>(star_count_total);
@@ -79,7 +84,7 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
 
             if (column == 0) {
                 LinearLayout linearLayout = new LinearLayout(this);
-                linearLayout.setPadding(0,0,0,0);
+                linearLayout.setPadding(0, 0, 0, 0);
                 field.addView(linearLayout);
             }
 
@@ -89,9 +94,9 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
                     getResources().getDimensionPixelSize(R.dimen.star_size),
                     getResources().getDimensionPixelSize(R.dimen.star_size)
             );
-            layoutParams.setMargins(0,0,0,0);
+            layoutParams.setMargins(0, 0, 0, 0);
             star.setLayoutParams(layoutParams);
-            star.setPadding(0,0,0,0);
+            star.setPadding(0, 0, 0, 0);
             star.setImageResource(android.R.drawable.star_big_off);
             star.setTag(String.valueOf(i));
 
@@ -110,16 +115,17 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
-                if (lastTime < 0) {
-                    timer.cancel();
-                    timer.purge();
-                    title.setText("Вспоминай");
-                    render(current, true);
-                } else {
-                    title.setText("Осталось " + (lastTime / 1000) + " секунд");
-                    lastTime -= 1000;
-                }
+                runOnUiThread(()->{
+                    if (lastTime < 0) {
+                        timer.cancel();
+                        timer.purge();
+                        title.setText("Вспоминай");
+                        render(current, true);
+                    } else {
+                        title.setText("Осталось " + (lastTime / 1000) + " секунд");
+                        lastTime -= 1000;
+                    }
+                });
 
             }
         }, 1000, 1000);
@@ -145,6 +151,8 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
                 star.setImageResource(android.R.drawable.star_big_off);
             }
         }
+
+        ((TextView) findViewById(R.id.error_counter)).setText(String.format("Количество ошибок: %d", error_count));
     }
 
     void generateStars(int level) {
@@ -202,6 +210,10 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
 
             if (isMarch) {
                 if (level_stars_count.length - 1 == level) {
+                    getSharedPreferences(COMPLETED_LEVELS, MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("level_" + level_number, true)
+                            .apply();
                     showFinishDialog();
                     return;
                 } else {
@@ -211,6 +223,7 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
                 }
             } else {
                 message = "ОШИБКА! \nПопробуй снова!";
+                error_count++;
                 render(current, false);
             }
 

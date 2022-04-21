@@ -4,21 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     android:gravity="center"
+    android:id="@+id/container"
     android:orientation="vertical"
     tools:context=".GameActivity">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        android:tag="1"
         android:id="@+id/btn_level1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="200dp"
+        android:gravity="center"
         android:text="LEVEL 1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:tag="2"
         android:id="@+id/btn_level2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,11 +34,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:tag="3"
         android:id="@+id/btn_level3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="200dp"
         android:text="LEVEL 3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:tag="4"
+        android:id="@+id/btn_level4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="200dp"
+        android:text="LEVEL 4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
