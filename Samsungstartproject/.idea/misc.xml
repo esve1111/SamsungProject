@@ -6,15 +6,26 @@
         <entry key="..\:/Users/forex/AndroidStudioProjects/Samsungstartproject/app/src/main/res/layout/activity_game.xml" value="0.25" />
         <entry key="..\:/Users/forex/AndroidStudioProjects/Samsungstartproject/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2035" />
+        <entry key="app/src/main/res/drawable/backgournd.xml" value="0.267" />
         <entry key="app/src/main/res/drawable/ic_baseline_attribution_14.xml" value="0.2035" />
         <entry key="app/src/main/res/drawable/ic_baseline_attribution_24.xml" value="0.2035" />
         <entry key="app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/ic_baseline_done_outline_24.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2035" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.226" />
-        <entry key="app/src/main/res/layout/activity_game.xml" value="0.30052083333333335" />
+        <entry key="app/src/main/res/drawable/level_image_0.xml" value="0.1585" />
+        <entry key="app/src/main/res/drawable/level_image_1.xml" value="0.1585" />
+        <entry key="app/src/main/res/drawable/level_image_2.xml" value="0.1585" />
+        <entry key="app/src/main/res/drawable/level_image_3.xml" value="0.1585" />
+        <entry key="app/src/main/res/drawable/star_big_off.xml" value="0.152" />
+        <entry key="app/src/main/res/drawable/star_big_on.xml" value="0.152" />
+        <entry key="app/src/main/res/font-v26/youmurderer_bb_regular.xml" value="0.3104166666666667" />
+        <entry key="app/src/main/res/font/grimghost_regular.xml" value="0.30462962962962964" />
+        <entry key="app/src/main/res/font/youmurderer_bb_regular.xml" value="0.3104166666666667" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.2233032569456635" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.30052083333333335" />
         <entry key="app/src/main/res/layout/activity_memo.xml" value="0.2864583333333333" />
+        <entry key="app/src/main/res/layout/activity_tips.xml" value="0.30052083333333335" />
         <entry key="app/src/main/res/layout/activity_tops.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2035" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2035" />

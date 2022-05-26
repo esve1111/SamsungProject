@@ -1,23 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/main_background"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_game1"
-        android:layout_width="200dp"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_main" />
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Game" />
+        android:layout_marginTop="80dp"
+        android:adjustViewBounds="true"
+        android:background="#33FF0000"
+        android:fontFamily="@font/youmurderer"
+        android:gravity="center"
+        android:text="WELCOME TO\nTHE HELL BRAIN"
+        android:textColor="@color/black"
+        android:textSize="60sp" />
 
-    <Button
-        android:id="@+id/btn_tips"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Tips" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-</LinearLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#33FF0000">
+
+            <ImageButton
+                android:id="@+id/btn_game1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@android:color/transparent"
+                android:rotationX="180"
+                android:scaleType="centerInside"
+                android:src="@drawable/pentagram" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/youmurderer_bb_regular"
+                android:text="START"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="80sp" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_tips"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF570404"
+            android:fontFamily="@font/youmurderer_bb_regular"
+            android:text="Tips"
+            android:textSize="30sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

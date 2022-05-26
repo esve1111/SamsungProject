@@ -81,6 +81,8 @@ public class GameActivity extends AppCompatActivity {
                 img = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_close_24, getTheme());
             }
             img.setTint(Color.BLACK);
+            Integer levelRes = getResources().getIdentifier("level_image_" + i, "drawable", getPackageName());
+            Drawable level = getResources().getDrawable(levelRes, getTheme());
             button.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
         }
     }

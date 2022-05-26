@@ -54,7 +54,7 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
         current = new ArrayList<>(star_count_total);
 
         title = findViewById(R.id.title);
-        title.setText("Для начала игры нажмите START");
+        title.setText("PUSH START");
 
         generateField();
 
@@ -97,7 +97,7 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
             layoutParams.setMargins(0, 0, 0, 0);
             star.setLayoutParams(layoutParams);
             star.setPadding(0, 0, 0, 0);
-            star.setImageResource(android.R.drawable.star_big_off);
+            star.setImageResource(R.drawable.star_big_off);
             star.setTag(String.valueOf(i));
 
             ((LinearLayout) field.getChildAt(row)).addView(star);
@@ -146,9 +146,9 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (array.get(i)) {
-                star.setImageResource(android.R.drawable.star_big_on);
+                star.setImageResource(R.drawable.star_big_on);
             } else {
-                star.setImageResource(android.R.drawable.star_big_off);
+                star.setImageResource(R.drawable.star_big_off);
             }
         }
 
@@ -174,7 +174,7 @@ public class MemoActivity extends AppCompatActivity implements View.OnClickListe
         int index = Integer.parseInt(v.getTag().toString());
 
         current.set(index, true);
-        ((ImageButton) v).setImageResource(android.R.drawable.star_big_on);
+        ((ImageButton) v).setImageResource(R.drawable.star_big_on);
 
         check();
     }
